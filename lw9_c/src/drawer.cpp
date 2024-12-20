@@ -92,3 +92,32 @@ void DrawLine(Image& image, Point from, Point to, char color)
 		DrawSlopeLine(image, from, to, color);
 	}
 }
+
+void DrawCircle(Image& img, Point center, int radius, char color) {
+	auto sim = [&](int x, int y) {
+		img.SetPixel({ x + center.x, y + center.y }, color);
+		img.SetPixel({ x + center.x, -y + center.y }, color);
+		img.SetPixel({ -x + center.x, -y + center.y }, color);
+		img.SetPixel({ -x + center.x, y + center.y }, color);
+		img.SetPixel({ y + center.x, x + center.y }, color);
+		img.SetPixel({ y + center.x, -x + center.y }, color);
+		img.SetPixel({ -y + center.x, -x + center.y }, color);
+		img.SetPixel({ -y + center.x, x + center.y }, color);
+	};
+
+	int d = 3 - 2 * radius;
+	int x = 0;
+	int y = radius;
+
+	while (x <= y) {
+		sim(x, y);
+
+		if (d < 0) {
+			d += 4 * x + 6;
+		} else {
+			d += 4 * (x - y) + 10;
+			--y;
+		}
+		++x;
+	}
+}
