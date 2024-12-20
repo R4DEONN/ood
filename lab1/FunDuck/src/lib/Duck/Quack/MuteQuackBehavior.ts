@@ -1,0 +1,3 @@
+function muteQuackBehavior() {}
+
+export {muteQuackBehavior}

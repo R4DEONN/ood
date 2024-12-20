@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<coverage generated="1731270372309" clover="3.2.0">
+  <project timestamp="1731270372309" name="All files">
+    <metrics statements="26" coveredstatements="24" conditionals="5" coveredconditionals="3" methods="5" coveredmethods="5" elements="36" coveredelements="32" complexity="0" loc="26" ncloc="26" packages="1" files="2" classes="2"/>
+    <file name="Command.ts" path="C:\Projects\ood\lw5_true\src\Command.ts">
+      <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+      <line num="5" count="4" type="stmt"/>
+      <line num="14" count="1" type="stmt"/>
+    </file>
+    <file name="CommandHistory.ts" path="C:\Projects\ood\lw5_true\src\CommandHistory.ts">
+      <metrics statements="24" coveredstatements="22" conditionals="5" coveredconditionals="3" methods="4" coveredmethods="4"/>
+      <line num="3" count="1" type="stmt"/>
+      <line num="6" count="2" type="stmt"/>
+      <line num="7" count="2" type="stmt"/>
+      <line num="10" count="14" type="cond" truecount="2" falsecount="0"/>
+      <line num="11" count="1" type="stmt"/>
+      <line num="13" count="13" type="cond" truecount="1" falsecount="0"/>
+      <line num="14" count="1" type="stmt"/>
+      <line num="16" count="14" type="stmt"/>
+      <line num="17" count="14" type="stmt"/>
+      <line num="18" count="14" type="stmt"/>
+      <line num="22" count="13" type="cond" truecount="0" falsecount="1"/>
+      <line num="23" count="0" type="stmt"/>
+      <line num="25" count="11" type="stmt"/>
+      <line num="26" count="11" type="stmt"/>
+      <line num="27" count="11" type="stmt"/>
+      <line num="31" count="2" type="cond" truecount="0" falsecount="1"/>
+      <line num="32" count="0" type="stmt"/>
+      <line num="34" count="1" type="stmt"/>
+      <line num="35" count="1" type="stmt"/>
+      <line num="36" count="1" type="stmt"/>
+      <line num="40" count="1" type="stmt"/>
+      <line num="41" count="1" type="stmt"/>
+      <line num="43" count="1" type="stmt"/>
+      <line num="47" count="1" type="stmt"/>
+    </file>
+  </project>
+</coverage>

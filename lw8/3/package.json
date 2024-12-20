@@ -1,0 +1,9 @@
+{
+  "type": "module",
+  "scripts": {
+    "start": "webpack --mode production",
+    "test": "jest --coverage"
+  },
+  "dependencies": {
+  }
+}

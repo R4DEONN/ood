@@ -1,0 +1,18 @@
+* {
+    /*margin: 0;*/
+}
+
+body {
+    display: flex;
+    flex-direction: column-reverse;
+    justify-content: start;
+}
+
+canvas {
+    border: 1px solid #000000;
+}
+
+input {
+    width: calc(100% - 60px);
+    height: 30px;
+}

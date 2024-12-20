@@ -1,0 +1,13 @@
+{
+  "type": "module",
+  "scripts": {
+    "start": "webpack --mode production && node dist/bundle.js",
+    "test": "jest --coverage"
+  },
+  "dependencies": {
+    "assert": "^2.1.0",
+    "fs": "^0.0.1-security",
+    "readline": "^1.3.0",
+    "util": "^0.12.5"
+  }
+}

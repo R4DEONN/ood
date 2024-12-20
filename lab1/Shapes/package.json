@@ -1,0 +1,7 @@
+{
+  "type": "module",
+  "scripts": {
+    "start": "webpack --mode production && node ./dist/bundle.js",
+    "test": "jest --coverage"
+  }
+}
