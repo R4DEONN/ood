@@ -1,68 +1,86 @@
 #include "image.h"
 #include <cassert>
+#include <cmath>
 #include <ostream>
 #include <sstream>
 #include <stdexcept>
 #include <vector>
 
-/**
- * Конструирует изображение заданного размера. Если размеры не являются положительными,
- * выбрасывает исключение std::out_of_range.
- */
-Image::Image(Size size, char color)
+Image::Image(const Size size, const char color)
 {
-	/* Реализуйте конструктор самостоятельно */
+	if (size.width < 0 || size.height < 0)
+	{
+		throw std::out_of_range("Invalid size");
+	}
+
+	m_size = size;
+	const int tileCountX = std::ceil(static_cast<double>(size.width) / static_cast<double>(Tile::SIZE));
+	const int tileCountY = std::ceil(static_cast<double>(size.height) / static_cast<double>(Tile::SIZE));
+	m_tiles.reserve(tileCountY);
+
+	for (int y = 0; y < tileCountY; ++y)
+	{
+		m_tiles.emplace_back();
+		m_tiles[y].reserve(tileCountX);
+		for (int x = 0; x < tileCountX; ++x)
+		{
+			m_tiles[y].emplace_back(Tile(color));
+		}
+	}
 }
 
-// Возвращает размер изображения в пикселях.
 Size Image::GetSize() const noexcept
 {
-	/* Реализуйте метод самостоятельно. */
-
-	return { 0, 0 };
+	return m_size;
 }
 
-/**
- * Возвращает «цвет» пикселя в указанных координатах.Если координаты выходят за пределы
- * изображения, возвращает «пробел».
- */
 char Image::GetPixel(Point p) const noexcept
 {
-	/* Реализуйте метод самостоятельно. */
+	if (!IsPointInSize(p, m_size))
+	{
+		return ' ';
+	}
 
-	return ' ';
+	const int tileX = p.x / Tile::SIZE;
+	const int tileY = p.y / Tile::SIZE;
+
+	const Point localPoint = {p.x % Tile::SIZE, p.y % Tile::SIZE};
+
+	return m_tiles[tileY][tileX]->GetPixel(localPoint);
 }
 
-/**
- * Задаёт «цвет» пикселя в указанных координатах. Если координаты выходят за пределы изображения
- * действие игнорируется.
- */
 void Image::SetPixel(Point p, char color)
 {
-	/* Реализуйте метод самостоятельно. */
+	if (!IsPointInSize(p, m_size))
+	{
+		return;
+	}
+
+	const int tileX = p.x / Tile::SIZE;
+	const int tileY = p.y / Tile::SIZE;
+
+	const Point localPoint = {p.x % Tile::SIZE, p.y % Tile::SIZE};
+
+	m_tiles[tileY][tileX].Write([localPoint, color](Tile& tile)
+	{
+		tile.SetPixel(localPoint, color);
+	});
 }
 
-/**
- * Выводит в поток out изображение в виде символов.
- */
-void Print(const Image& img, std::ostream& out)
+void Print(const Image &img, std::ostream &out)
 {
-	const auto size = img.GetSize();
-	for (int y = 0; y < size.height; ++y)
+	const auto [width, height] = img.GetSize();
+	for (int y = 0; y < height; ++y)
 	{
-		for (int x = 0; x < size.width; ++x)
+		for (int x = 0; x < width; ++x)
 		{
-			out.put(img.GetPixel({ x, y }));
+			out.put(img.GetPixel({x, y}));
 		}
 		out.put('\n');
 	}
 }
 
-/**
- * Загружает изображение из pixels. Линии изображения разделяются символами \n.
- * Размеры картинки определяются по количеству переводов строки и самой длинной линии.
- */
-Image LoadImage(const std::string& pixels)
+Image LoadImage(const std::string &pixels)
 {
 	std::istringstream s(pixels);
 	Size size;
@@ -82,9 +100,9 @@ Image LoadImage(const std::string& pixels)
 			break;
 
 		int x = 0;
-		for (char ch : line)
+		for (const char ch: line)
 		{
-			img.SetPixel({ x++, y }, ch);
+			img.SetPixel({x++, y}, ch);
 		}
 	}
 

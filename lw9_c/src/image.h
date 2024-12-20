@@ -1,8 +1,11 @@
 #pragma once
 #include <iosfwd>
 #include <string>
+#include <vector>
 
+#include "cow.h"
 #include "geom.h"
+#include "tile.h"
 
 class Image
 {
@@ -29,6 +32,9 @@ public:
 	void SetPixel(Point p, char color);
 
 private:
+
+	Size m_size;
+	std::vector<std::vector<CoW<Tile>>> m_tiles;
 };
 
 /**

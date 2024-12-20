@@ -34,20 +34,17 @@ class CoW
 	};
 
 public:
-	// Конструируем значение по умолчанию.
 	CoW()
 		: value_(std::make_shared<Value>())
 	{
 	}
 
-	// Создаём значение за счёт перемещения его из value.
-	CoW(Value&& value)
+	explicit CoW(Value&& value)
 		: value_(std::make_shared<Value>(std::move(value)))
 	{
 	}
 
-	// Создаём значение из value.
-	CoW(const Value& value)
+	explicit CoW(const Value& value)
 		: value_(std::make_shared<Value>(value))
 	{
 	}
@@ -76,6 +73,7 @@ public:
 
 	// Метод Write() нельзя вызвать только у rvalue-ссылок на CoW-объект.
 	WriteProxy Write() && = delete;
+
 	[[nodiscard]] WriteProxy Write() &
 	{
 		EnsureUnique();
